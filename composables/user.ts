@@ -1,6 +1,6 @@
-
 export const useUser = defineStore('user', {
   state: () => ({
-    isLogin: false
+    isLogin: false,
+    userInfo: false
   }),
 })

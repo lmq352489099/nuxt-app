@@ -1,13 +1,13 @@
+<script></script>
+
 <template>
   <div>
     <nav>
-      <Avartar></Avartar>
+      <Avartar />
       导航栏
     </nav>
   </div>
 </template>
-
-<script></script>
 
 <style lang="scss" scoped>
 .avatar {

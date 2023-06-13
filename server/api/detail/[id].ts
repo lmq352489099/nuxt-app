@@ -1,5 +1,5 @@
-import fs from 'fs'
-import path from 'path'
+import fs from 'node:fs'
+import path from 'node:path'
 import matter from 'gray-matter'
 import { remark } from 'remark'
 import html from 'remark-html'
@@ -9,7 +9,7 @@ const postsDir = path.join(process.cwd(), 'content')
 
 export default defineEventHandler(async (event) => {
   // url 路由参数
-  const fileName = 'test' + getRouterParam(event, 'id') + '.md'
+  const fileName = `${getRouterParam(event, 'id')}.md`
 
   // 获取请求体参数
 
@@ -35,12 +35,13 @@ export default defineEventHandler(async (event) => {
 
     return {
       title: matterInfo.data.title,
-      content: content,
+      content,
     }
-  } catch (error) {
-     throw createError({
-      statusCode:404,
-      statusMessage:"文章不存在"
+  }
+  catch (error) {
+    throw createError({
+      statusCode: 404,
+      statusMessage: '文章不存在',
     })
     // return sendError(
     //   event,

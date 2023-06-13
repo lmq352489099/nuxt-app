@@ -1,1 +1,1 @@
-export const useConter = () => useState('count', ()=> 1)
+export const useConter = () => useState('count', () => 1)

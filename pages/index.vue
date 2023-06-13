@@ -1,63 +1,37 @@
-<template>
-  <div>
-    <h1>index page</h1>
-
-    <NuxtLink to="/detail/1">Detail Page</NuxtLink>
-
-    <NuxtLink to="/detail/detail-1">Detail Page2</NuxtLink>
-
-    <BaseFooButton></BaseFooButton>
-
-    <div>
-      <NButton>按钮</NButton>
-    </div>
-
-    <div class="flex items-center flex-col gap-2 py-4">
-      <div v-if="error">{{ error.message }}</div>
-      <div v-if="pending">加载中...</div>
-      <div v-else>
-        <div v-for="post in posts" :key="post.id">
-          <NuxtLink class="text-lg" :to="`/detail/${post.id}`">{{ post.title }}</NuxtLink>
-          <p class="text-slate-500">发布于: {{ post.date }}</p>
-        </div>
-      </div>
-
-      <!-- 分页 -->
-      <div>
-        <NButton @click="prev">上一页</NButton>
-        <NButton @click="next">下一页</NButton>
-      </div>
-    </div>
-  </div>
-</template>
-
-<script lang="ts" setup>
-interface ObjTy {
-  id?: string
-  title?: string
-  date?: Date
-  // [propName: string]: any
-}
-// const posts: ObjTy[] = await $fetch('/api/posts')
-
-// const { data: posts, pending, error } = await useFetch('/api/posts')
-const page = ref(1)
-const {
-  data: posts,
-  pending,
-  error,
-  refresh,
-} = await useFetch(() => `/api/posts?page=${page.value}`, {
-  query: {},
+<script setup lang="ts">
+useHead({
+  title: '羊村学堂',
 })
 
-function prev() {
-  page.value--
-  // refresh()
-}
-
-function next() {
-  page.value++
-  // refresh()
-}
+const { data, error } = await useFetch('/api/indexdata')
+console.log(data)
+const slides = [
+  { label: '1', bgColor: 'cadetblue' },
+  { label: '2', bgColor: 'cornflowerblue' },
+  { label: '3', bgColor: 'blueviolet' },
+  { label: '4', bgColor: 'brown' },
+]
+if (process.server && error.value)
+  showError('获取数据失败！')
 </script>
+
+<template>
+  <n-carousel show-arrow class="mb-6">
+    <div
+      v-for="item in slides" :key="item.label"
+      class="text-white w-full h-[150px] lg:h-[400px] rounded cursor-pointer text-center leading-[400px]"
+      :style="{ backgroundColor: item.bgColor }"
+    >
+      {{ item.label }}
+    </div>
+  </n-carousel>
+  <ProdList
+    :data="data?.data.courses!"
+    title="最新课程"
+  />
+  <ProdList
+    :data="data?.data.columns!"
+    title="最新专栏"
+    type="column"
+  />
+</template>

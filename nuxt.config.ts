@@ -46,14 +46,16 @@ const headApp = {
 export default defineNuxtConfig({
   // ssr: false, //spa
   // vite: {},
-  nitro: {
-    preset: 'vercel',
-  },
+  // nitro: {
+  //   preset: 'vercel',
+  // },
   // builder:"webpack",//需要安装依赖 @nuxt/webpack-builder
   // webpack: {},
   // postcss: {},
   modules: [
-    '@nuxtjs/tailwindcss',
+    '@unocss/nuxt',
+    '@nuxtjs/color-mode',
+    // '@nuxtjs/tailwindcss',
     '@huntersofbook/naive-ui-nuxt',
     [
       '@pinia/nuxt',
@@ -69,6 +71,23 @@ export default defineNuxtConfig({
   ...myConfig,
   ...imports,
   ...headApp,
+
+  colorMode: {
+    preference: 'dark', // default value of $colorMode.preference
+    fallback: 'light', // fallback value if not system preference found
+    hid: 'nuxt-color-mode-script',
+    globalName: '__NUXT_COLOR_MODE__',
+    componentName: 'ColorScheme',
+    classPrefix: '',
+    classSuffix: '',
+    storageKey: 'nuxt-color-mode',
+
+  },
+  // devtools: {
+  //   enabled: true,
+  // }
+
+
   // css: [
   //   // 'assets/global.css'
   // ],
@@ -82,3 +101,4 @@ export default defineNuxtConfig({
   //   },
   // },
 })
+

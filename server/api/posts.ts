@@ -1,12 +1,12 @@
-import fs from 'fs'
-import path from 'path'
+import fs from 'node:fs'
+import path from 'node:path'
 import matter from 'gray-matter'
 
 // 文章目录
 const postsDir = path.join(process.cwd(), 'content')
 
 export default defineEventHandler((event) => {
-  //获取页码
+  // 获取页码
 
   const query = getQuery(event)
   const page = Number(query.page)

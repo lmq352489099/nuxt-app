@@ -1,23 +1,18 @@
+<script setup>
+defineProps({
+  error: Object,
+})
+const handleError = () => clearError({ redirect: '/' })
+</script>
+
 <template>
-  <div class="pt-10">
-    <h1 class="text-2xl text-center mb-2">
-      出了点错 - {{ props.error?.statusCode }}
-    </h1>
-    <NEmpty description="你什么也找不到">
-      <template #extra>
-        <n-button @click="retry">重试</n-button>
-        <n-button @click="handleError">回到首页</n-button>
+  <div class="pt-[14rem]">
+    <NResult status="500" title="服务器错误" :description="error.message">
+      <template #footer>
+        <NButton @click="handleError">
+          回到首页
+        </NButton>
       </template>
-    </NEmpty>
+    </NResult>
   </div>
 </template>
-
-<script setup lang="ts">
-const props = defineProps({
-  error: Object,
-});
-console.log(props.error);
-const router = useRouter();
-const retry = () => window.location.href = props.error!.url;
-const handleError = () => clearError({ redirect: "/" });
-</script>

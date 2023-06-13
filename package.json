@@ -1,26 +1,51 @@
 {
   "name": "nuxt-app",
   "private": true,
+  "prisma": {
+    "seed": "ts-node server/database/seed.ts"
+  },
   "scripts": {
+    "start": "nuxt start PORT=3004",
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
-  },
-  "devDependencies": {
-    "@huntersofbook/naive-ui-nuxt": "^0.7.1",
-    "@types/node": "^18",
-    "nuxt": "3.2.2",
-    "sass": "^1.62.0",
-    "typescript": "^5.0.4"
+    "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test:unit": "vitest",
+    "migrate": "npx prisma migrate dev --name init  --preview-feature  --schema server/database/schema.prisma",
+    "migratePro": "npx prisma migrate deploy  --preview-feature --schema server/database/schema.prisma",
+    "migrate3": "npx prisma migrate deploy --preview-feature --schema=./server/database/schema.prisma",
+    "seed": "npx prisma db seed",
+    "clear": "npx prisma migrate reset --preview-feature --schema server/database/schema.prisma"
   },
   "dependencies": {
+    "@nuxtjs/color-mode": "^3.2.0",
     "@nuxtjs/tailwindcss": "^6.6.6",
     "@pinia/nuxt": "^0.4.10",
+    "@prisma/client": "^4.11.0",
+    "@types/jsonwebtoken": "^9.0.2",
+    "bcryptjs": "^2.4.3",
+    "dayjs": "^1.11.7",
     "gray-matter": "^4.0.3",
+    "jsonwebtoken": "^9.0.0",
     "pinia": "^2.0.36",
     "remark": "^14.0.2",
     "remark-html": "^15.0.2"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^0.39.2",
+    "@huntersofbook/naive-ui-nuxt": "^0.7.1",
+    "@iconify-json/logos": "^1.1.31",
+    "@types/bcryptjs": "^2.4.2",
+    "@types/node": "^18",
+    "@unocss/nuxt": "^0.52.3",
+    "eslint": "^8.41.0",
+    "nuxt": "3.2.2",
+    "prisma": "4.14.1",
+    "sass": "^1.62.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
   }
 }
