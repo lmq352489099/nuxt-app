@@ -1,9 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
+console.log('基础服务路径', process.env.JSON_SECRET)
 const myConfig = {
   runtimeConfig: {
     // 只能用于服务端key,.env 有写则覆盖
     apiSecret: 'mysecret',
+    DATABASE_URL: process.env.DATABASE_URL,
     apiSecret2: 'mysecret2',
     // 只能用于前端
     public: {

@@ -6,7 +6,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword # root账号密码
     ports:
-      - "127.0.0.1:4306:3306"
+      - "127.0.0.1:5306:3306"
     volumes:
       - mysql_db_data_container:/var/lib/mysql
     healthcheck:
@@ -23,7 +23,7 @@ services:
     environment:
       ADMINER_DEFAULT_SERVER: mysql_db_container
     ports:
-      - 9080:8080
+      - 7080:8080
     networks:
       my_network:
   nuxt_app_container:
@@ -36,15 +36,15 @@ services:
       args:
         - "-y"
     ports:
-      - "3005:3000"
+      - "3004:3000"
     environment:
       DATABASE_URL: mysql://root:rootpassword@mysql_db_container_hostname:3306/ycxt
       NUXT_BASE_URL: https://jsonplaceholder.typicode.com
-      JSON_SECRET: thisisjsonsecret
+      JSON_SECRET: thisisjsonsecretDocker
     #command: >
-    #  /bin/sh -c 'npm run clear npm run migrate && npm run build && npm start npm run clear && '
+    #  /bin/sh -c 'npm run migrate && npm run build && npm start npm run clear && '
     command: >
-     /bin/sh -c ' npm run migratePro && npm run build && npm start'
+     /bin/sh -c 'npm run migrate && npm run build && npm start'
     depends_on:
       mysql_db_container:
         condition: service_healthy

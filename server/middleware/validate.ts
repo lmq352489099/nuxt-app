@@ -1,5 +1,5 @@
 export default defineEventHandler((event) => {
-  console.log('进入中间件')
+  console.log('进入中间件222',process.env.JSON_SECRET)
   // 扩展上下文对象
   // event.context.userInfo = { user: 'cunzhang' }
   // // 审查请求信息

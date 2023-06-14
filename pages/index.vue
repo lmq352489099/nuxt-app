@@ -6,7 +6,7 @@ useHead({
 const { data, error } = await useFetch('/api/indexdata')
 console.log(data)
 const slides = [
-  { label: '1', bgColor: 'cadetblue' },
+  { label: '12', bgColor: 'cadetblue' },
   { label: '2', bgColor: 'cornflowerblue' },
   { label: '3', bgColor: 'blueviolet' },
   { label: '4', bgColor: 'brown' },
@@ -14,24 +14,18 @@ const slides = [
 if (process.server && error.value)
   showError('获取数据失败！')
 </script>
+<!-- :style="{ backgroundColor: item.bgColor }" -->
 
 <template>
   <n-carousel show-arrow class="mb-6">
-    <div
-      v-for="item in slides" :key="item.label"
+    <div v-for="item in slides" :key="item.label"
       class="text-white w-full h-[150px] lg:h-[400px] rounded cursor-pointer text-center leading-[400px]"
-      :style="{ backgroundColor: item.bgColor }"
-    >
+      :style="{ backgroundColor: item.bgColor }">
       {{ item.label }}
+
     </div>
   </n-carousel>
-  <ProdList
-    :data="data?.data.courses!"
-    title="最新课程"
-  />
-  <ProdList
-    :data="data?.data.columns!"
-    title="最新专栏"
-    type="column"
-  />
+
+  <ProdList :data="data?.data.courses!" title="最新课程" />
+  <ProdList :data="data?.data.columns!" title="最新专栏" type="column" />
 </template>
